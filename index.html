@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7c6cf2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <title>Tempahan Fasiliti & Bilik Khas | IPG Kampus Darulaman</title>
+  <link rel="icon" href="logo.png">
+  <style>
+/* ============ Claymorphism UI — mesra telefon bimbit ============ */
+:root {
+  --bg1: #eef0ff;
+  --bg2: #fdf0f7;
+  --clay: #f6f4ff;
+  --ink: #2f2a4a;
+  --muted: #7a7398;
+  --pri: #7c6cf2;
+  --pri-dark: #5b4bd6;
+  --ok: #34b98a;
+  --err: #ef6b7b;
+  --wait: #f5a94a;
+  --radius: 28px;
+  --shadow-out: 10px 10px 24px rgba(140, 126, 210, .28), -8px -8px 20px rgba(255, 255, 255, .85);
+  --shadow-in: inset 6px 6px 12px rgba(255, 255, 255, .9), inset -6px -6px 12px rgba(140, 126, 210, .18);
+  --shadow-press: inset 6px 6px 12px rgba(140, 126, 210, .28), inset -6px -6px 12px rgba(255, 255, 255, .9);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; min-height: 100%; background: linear-gradient(160deg, var(--bg1), var(--bg2)); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: transparent;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom)); /* ruang untuk tab bawah */
+}
+
+/* ---------- Header ---------- */
+header {
+  margin: 16px;
+  padding: 20px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(145deg, #8f80ff, var(--pri));
+  color: #fff;
+  border-radius: var(--radius);
+  box-shadow: 10px 10px 24px rgba(124, 108, 242, .35), inset 4px 4px 10px rgba(255, 255, 255, .35), inset -6px -6px 12px rgba(60, 40, 170, .25);
+}
+header .logo {
+  width: 60px; height: 60px; flex: none;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 20px;
+  padding: 6px;
+  box-shadow: var(--shadow-in), 4px 4px 10px rgba(60, 40, 170, .25);
+}
+header h1 { margin: 0; font-size: 1.15rem; font-weight: 800; line-height: 1.25; }
+header p { margin: 4px 0 0; font-size: .82rem; opacity: .9; }
+
+/* ---------- Navigasi: tab bawah (telefon) ---------- */
+nav {
+  position: fixed;
+  left: 12px; right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 8px;
+  background: var(--clay);
+  border-radius: 26px;
+  box-shadow: var(--shadow-out), var(--shadow-in);
+}
+nav button {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 4px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-radius: 18px;
+  font: inherit; font-size: .72rem; font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+nav button .ic { font-size: 1.35rem; line-height: 1; }
+nav button.active { color: var(--pri-dark); background: #ebe7ff; box-shadow: var(--shadow-press); }
+
+/* ---------- Kandungan ---------- */
+main { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+.tab { display: none; animation: pop .25s ease; }
+.tab.active { display: block; }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+
+fieldset, .card, #formSemak, #formAdmin, #adminPanel > .row, #jadual > label {
+  background: var(--clay);
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-out), var(--shadow-in);
+}
+fieldset { margin: 0 0 20px; padding: 18px 18px 10px; }
+legend {
+  float: left; width: 100%;
+  margin-bottom: 6px;
+  font-weight: 800; font-size: 1rem; color: var(--pri-dark);
+}
+#formSemak, #formAdmin, #adminPanel > .row { padding: 18px; margin-bottom: 20px; }
+#jadual > label { display: block; padding: 18px; margin-bottom: 20px; }
+
+label { display: block; margin: 10px 0; font-size: .88rem; font-weight: 700; color: var(--muted); flex: 1; }
+input, select, textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 16px;
+  font: inherit; font-size: 16px; /* 16px elak zoom automatik iOS */
+  color: var(--ink);
+  background: #efecff;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  box-shadow: var(--shadow-press);
+  outline: none;
+  transition: border-color .2s, background .2s;
+  -webkit-appearance: none; appearance: none;
+}
+select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--pri) 50%), linear-gradient(135deg, var(--pri) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 55%, calc(100% - 16px) 55%;
+  background-size: 6px 6px; background-repeat: no-repeat;
+  padding-right: 40px;
+}
+input:focus, select:focus, textarea:focus { border-color: #b9afff; background-color: #f4f2ff; }
+textarea { resize: vertical; }
+
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.row > label { min-width: 140px; }
+.row > label.full { flex-basis: 100%; }
+
+button {
+  padding: 14px 22px;
+  font: inherit; font-weight: 800; font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(145deg, #8f80ff, var(--pri));
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 6px 6px 14px rgba(124, 108, 242, .4), inset 3px 3px 6px rgba(255, 255, 255, .4), inset -4px -4px 8px rgba(60, 40, 170, .25);
+  cursor: pointer;
+  transition: transform .1s, box-shadow .2s;
+}
+button:active { transform: scale(.97); box-shadow: 2px 2px 6px rgba(124, 108, 242, .35), inset 4px 4px 8px rgba(60, 40, 170, .3); }
+button:disabled { opacity: .6; cursor: wait; }
+#formTempah > button[type=submit] { width: 100%; padding: 16px; font-size: 1.05rem; }
+
+.hint { margin: 4px 2px 0; font-size: .82rem; color: var(--muted); }
+.msg { margin-top: 16px; }
+.alert { padding: 14px 16px; border-radius: 20px; font-weight: 700; font-size: .92rem; box-shadow: var(--shadow-in); }
+.alert.ok { background: #dcf7ec; color: #1f8a63; }
+.alert.err { background: #ffe3e7; color: #c43c4e; }
+
+/* ---------- Kad tempahan ---------- */
+.card { padding: 16px 18px; margin: 16px 0; }
+.card h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 800; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.card p { margin: 4px 0; font-size: .88rem; color: #4a4466; overflow-wrap: anywhere; }
+.badge {
+  display: inline-block; padding: 4px 12px;
+  border-radius: 999px;
+  font-size: .72rem; font-weight: 800; color: #fff;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, .45), inset -2px -2px 4px rgba(0, 0, 0, .12);
+}
+.badge.Menunggu { background: var(--wait); }
+.badge.Lulus { background: var(--ok); }
+.badge.Ditolak, .badge.Dibatalkan { background: var(--err); }
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.actions input { flex: 1 1 100%; margin: 0; }
+.actions button { flex: 1; padding: 12px 10px; font-size: .9rem; }
+.actions button.lulus { background: linear-gradient(145deg, #5fd3a8, var(--ok)); box-shadow: 6px 6px 14px rgba(52, 185, 138, .35), inset 3px 3px 6px rgba(255, 255, 255, .4); }
+.actions button.tolak { background: linear-gradient(145deg, #ff8f9c, var(--err)); box-shadow: 6px 6px 14px rgba(239, 107, 123, .35), inset 3px 3px 6px rgba(255, 255, 255, .4); }
+.actions button[data-status=Dibatalkan] { background: linear-gradient(145deg, #b3acd0, #8f88ad); box-shadow: 6px 6px 14px rgba(120, 110, 160, .3), inset 3px 3px 6px rgba(255, 255, 255, .4); }
+
+/* ---------- Skrin besar: tab di atas ---------- */
+@media (min-width: 760px) {
+  body { padding-bottom: 32px; }
+  header { max-width: 760px; margin: 24px auto 16px; padding: 24px 28px; justify-content: center; }
+  header h1 { font-size: 1.5rem; }
+  nav { position: static; max-width: 560px; margin: 0 auto 24px; }
+  nav button { flex-direction: row; justify-content: center; gap: 8px; font-size: .9rem; padding: 12px; }
+  nav button .ic { font-size: 1.1rem; }
+  .actions input { flex-basis: 200px; }
+  .row > label.full { flex-basis: 0; }
+}
+</style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo IPG Kampus Darulaman" class="logo" onerror="this.remove()">
+    <div>
+      <h1>Tempahan Fasiliti &amp; Bilik Khas</h1>
+      <p id="institusi">Institut Pendidikan Guru Kampus Darulaman</p>
+    </div>
+  </header>
+
+  <nav>
+    <button data-tab="tempah" class="active"><span class="ic">📝</span>Tempah</button>
+    <button data-tab="jadual"><span class="ic">📅</span>Jadual</button>
+    <button data-tab="semak"><span class="ic">🔍</span>Semak</button>
+    <button data-tab="admin"><span class="ic">🔐</span>Admin</button>
+  </nav>
+
+  <main>
+    <!-- TEMPAH -->
+    <section id="tempah" class="tab active">
+      <form id="formTempah">
+        <fieldset>
+          <legend>Fasiliti</legend>
+          <label>Kategori
+            <select id="kategori" required>
+              <option value="Dewan Kuliah">Dewan Kuliah</option>
+              <option value="Bilik Mesyuarat">Bilik Mesyuarat</option>
+              <option value="Fasiliti">Fasiliti (Dewan Banai)</option>
+            </select>
+          </label>
+          <label>Fasiliti <select name="fasiliti" id="fasiliti" required></select></label>
+          <p id="infoFasiliti" class="hint"></p>
+          <div class="row">
+            <label class="full">Tarikh <input type="date" name="tarikh" required></label>
+            <label>Masa Mula <input type="time" name="mula" required></label>
+            <label>Masa Tamat <input type="time" name="tamat" required></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Maklumat Pelajar</legend>
+          <label>Nama Pelajar <input name="nama" autocomplete="name" required></label>
+          <div class="row">
+            <label>No. Matrik <input name="matrik" autocapitalize="characters" required></label>
+            <label>No. Telefon Pelajar <input type="tel" name="telefon" autocomplete="tel" inputmode="tel" placeholder="cth: 0123456789" required></label>
+          </div>
+          <label>Emel Pelajar <input type="email" name="emel" autocomplete="email" inputmode="email" required></label>
+          <label>Program / Kumpulan <input name="kumpulan" placeholder="cth: PISMP Matematik Ambilan Jun 2024" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Pensyarah Bertanggungjawab</legend>
+          <p class="hint">Wajib diisi. Pensyarah ini akan dihubungi jika terdapat sebarang masalah berkaitan tempahan.</p>
+          <label>Nama Pensyarah <input name="pensyarah" required></label>
+          <div class="row">
+            <label class="full">Jabatan <input name="jabatan" required></label>
+            <label>No. Telefon Pensyarah <input type="tel" name="telPensyarah" inputmode="tel" placeholder="cth: 0123456789" required></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Butiran Program</legend>
+          <label>Tujuan / Program <input name="tujuan" required></label>
+          <label>Bilangan Peserta <input type="number" name="peserta" min="1" inputmode="numeric"></label>
+          <label>Catatan <textarea name="catatan" rows="3"></textarea></label>
+        </fieldset>
+        <button type="submit">Hantar Permohonan</button>
+        <div id="msgTempah" class="msg"></div>
+      </form>
+    </section>
+
+    <!-- JADUAL -->
+    <section id="jadual" class="tab">
+      <label>Tarikh <input type="date" id="tarikhJadual"></label>
+      <div id="senaraiJadual"></div>
+    </section>
+
+    <!-- SEMAK -->
+    <section id="semak" class="tab">
+      <form id="formSemak">
+        <div class="row">
+          <label>ID Tempahan <input name="id" autocapitalize="characters" placeholder="cth: T2611150500..." required></label>
+          <label class="full">Emel Pelajar <input type="email" name="emel" autocomplete="email" inputmode="email" required></label>
+        </div>
+        <button type="submit">Semak</button>
+      </form>
+      <div id="hasilSemak"></div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="admin" class="tab">
+      <form id="formAdmin" class="row">
+        <label>Kata Laluan <input type="password" name="key" required></label>
+        <button type="submit">Log Masuk</button>
+      </form>
+      <div id="adminPanel" hidden>
+        <div class="row">
+          <label>Tapis Status
+            <select id="tapisStatus">
+              <option value="">Semua</option>
+              <option>Menunggu</option><option>Lulus</option><option>Ditolak</option><option>Dibatalkan</option>
+            </select>
+          </label>
+          <button type="button" id="muatSemula">Muat Semula</button>
+        </div>
+        <div id="senaraiAdmin"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+// Tampal URL Web App Apps Script (berakhir dengan /exec)
+window.API_URL = 'https://script.google.com/macros/s/AKfycbxQSHZIBrVEO4z_JliOKTWVVRI5Qke5QAXbsFPot0tyMsQmekgFipTlhQBajsi_EX2k/exec';
+</script>
+  <script>
+const $ = (s) => document.querySelector(s);
+let FASILITI = [];
+let ADMIN_KEY = '';
+
+// GET untuk bacaan; POST (text/plain, elak CORS preflight) untuk tulisan
+async function api(action, params = {}, method = 'GET') {
+  let res;
+  if (method === 'GET') {
+    const q = new URLSearchParams({ action, ...params });
+    res = await fetch(`${API_URL}?${q}`);
+  } else {
+    res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action, ...params }),
+    });
+  }
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error);
+  return json.data;
+}
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const alertBox = (type, text) => `<div class="alert ${type}">${esc(text)}</div>`;
+const today = () => new Date().toLocaleDateString('en-CA'); // yyyy-mm-dd
+
+// ---------- Tab ----------
+document.querySelectorAll('nav button').forEach((b) =>
+  b.addEventListener('click', () => {
+    document.querySelectorAll('nav button, .tab').forEach((el) => el.classList.remove('active'));
+    b.classList.add('active');
+    $('#' + b.dataset.tab).classList.add('active');
+    if (b.dataset.tab === 'jadual') loadJadual();
+  })
+);
+
+// ---------- Tempah ----------
+function renderFasiliti() {
+  const kat = $('#kategori').value;
+  $('#fasiliti').innerHTML = FASILITI.filter((f) => f.kategori === kat)
+    .map((f) => `<option value="${esc(f.id)}">${esc(f.nama)}</option>`).join('');
+  showInfo();
+}
+function showInfo() {
+  const f = FASILITI.find((x) => x.id === $('#fasiliti').value);
+  $('#infoFasiliti').textContent = f
+    ? [f.jenis, f.lokasi, f.kapasiti && `Kapasiti ${f.kapasiti}`, f.kemudahan].filter(Boolean).join(' · ')
+    : 'Tiada fasiliti aktif dalam kategori ini.';
+}
+$('#kategori').addEventListener('change', renderFasiliti);
+$('#fasiliti').addEventListener('change', showInfo);
+
+$('#formTempah').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target, btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+  $('#msgTempah').innerHTML = '';
+  try {
+    const r = await api('tempah', Object.fromEntries(new FormData(form)), 'POST');
+    $('#msgTempah').innerHTML = alertBox('ok', `Permohonan dihantar. ID Tempahan: ${r.id} (simpan untuk semakan status).`);
+    form.reset();
+    renderFasiliti();
+  } catch (err) {
+    $('#msgTempah').innerHTML = alertBox('err', err.message);
+  }
+  btn.disabled = false;
+});
+
+// ---------- Jadual ----------
+async function loadJadual() {
+  const tarikh = $('#tarikhJadual').value;
+  $('#senaraiJadual').innerHTML = '<p>Memuatkan…</p>';
+  try {
+    const list = await api('jadual', { tarikh });
+    $('#senaraiJadual').innerHTML = list.length
+      ? list.map((t) => `<div class="card">
+          <h3>${esc(t.mula)}–${esc(t.tamat)} · ${esc(t.nama)} <span class="badge ${esc(t.status)}">${esc(t.status)}</span></h3>
+          <p>${esc(t.tujuan)}</p><p>Pensyarah: ${esc(t.pensyarah)} (${esc(t.unit)})</p></div>`).join('')
+      : '<p>Tiada tempahan pada tarikh ini. Semua fasiliti kosong.</p>';
+  } catch (err) {
+    $('#senaraiJadual').innerHTML = alertBox('err', err.message);
+  }
+}
+$('#tarikhJadual').addEventListener('change', loadJadual);
+
+// ---------- Semak ----------
+function cardTempahan(t, admin = false) {
+  return `<div class="card">
+    <h3>${esc(t['Nama Fasiliti'])} <span class="badge ${esc(t['Status'])}">${esc(t['Status'])}</span></h3>
+    <p><b>ID:</b> ${esc(t['ID Tempahan'])} · <b>Tarikh:</b> ${esc(t['Tarikh Guna'])} ${esc(t['Masa Mula'])}–${esc(t['Masa Tamat'])}</p>
+    <p><b>Pelajar:</b> ${esc(t['Nama Pelajar'])} (${esc(t['No. Matrik'])}) · ${esc(t['Program / Kumpulan'])}${admin ? ` · ${esc(t['No. Telefon Pelajar'])} · ${esc(t['Emel Pelajar'])}` : ''}</p>
+    <p><b>Pensyarah:</b> ${esc(t['Nama Pensyarah Bertanggungjawab'])} (${esc(t['Jabatan Pensyarah'])}) · ${esc(t['No. Telefon Pensyarah'])}</p>
+    <p><b>Tujuan:</b> ${esc(t['Tujuan / Program'])}${t['Bilangan Peserta'] ? ` · ${esc(t['Bilangan Peserta'])} peserta` : ''}</p>
+    ${t['Catatan Pemohon'] ? `<p><b>Catatan:</b> ${esc(t['Catatan Pemohon'])}</p>` : ''}
+    ${t['Catatan Pentadbir'] ? `<p><b>Catatan Pentadbir:</b> ${esc(t['Catatan Pentadbir'])}</p>` : ''}
+    ${admin ? `<div class="actions" data-id="${esc(t['ID Tempahan'])}">
+      <input placeholder="Catatan pentadbir (pilihan)">
+      <button class="lulus" data-status="Lulus">Lulus</button>
+      <button class="tolak" data-status="Ditolak">Tolak</button>
+      <button data-status="Dibatalkan">Batal</button></div>` : ''}
+  </div>`;
+}
+
+$('#formSemak').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    const t = await api('semak', Object.fromEntries(new FormData(e.target)), 'POST');
+    $('#hasilSemak').innerHTML = cardTempahan(t);
+  } catch (err) {
+    $('#hasilSemak').innerHTML = alertBox('err', err.message);
+  }
+});
+
+// ---------- Admin ----------
+let SENARAI = [];
+async function loadAdmin() {
+  $('#senaraiAdmin').innerHTML = '<p>Memuatkan…</p>';
+  SENARAI = await api('admin_senarai', { key: ADMIN_KEY }, 'POST');
+  renderAdmin();
+}
+function renderAdmin() {
+  const s = $('#tapisStatus').value;
+  const list = SENARAI.filter((t) => !s || t['Status'] === s);
+  $('#senaraiAdmin').innerHTML = list.length ? list.map((t) => cardTempahan(t, true)).join('') : '<p>Tiada rekod.</p>';
+}
+
+$('#formAdmin').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  ADMIN_KEY = new FormData(e.target).get('key');
+  try {
+    await loadAdmin();
+    e.target.hidden = true;
+    $('#adminPanel').hidden = false;
+  } catch (err) {
+    $('#senaraiAdmin').innerHTML = '';
+    alert(err.message);
+  }
+});
+$('#tapisStatus').addEventListener('change', renderAdmin);
+$('#muatSemula').addEventListener('click', loadAdmin);
+
+$('#senaraiAdmin').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-status]');
+  if (!btn) return;
+  const box = btn.parentElement;
+  if (!confirm(`Tukar status ${box.dataset.id} kepada ${btn.dataset.status}?`)) return;
+  box.querySelectorAll('button').forEach((b) => (b.disabled = true));
+  try {
+    await api('admin_status', { key: ADMIN_KEY, id: box.dataset.id, status: btn.dataset.status, catatan: box.querySelector('input').value }, 'POST');
+    await loadAdmin();
+  } catch (err) {
+    alert(err.message);
+    box.querySelectorAll('button').forEach((b) => (b.disabled = false));
+  }
+});
+
+// ---------- Init ----------
+(async function init() {
+  $('#tarikhJadual').value = today();
+  document.querySelector('input[name=tarikh]').min = today();
+  try {
+    const [info, fas] = await Promise.all([api('info'), api('fasiliti')]);
+    if (info.institusi) $('#institusi').textContent = info.institusi;
+    FASILITI = fas;
+    renderFasiliti();
+  } catch (err) {
+    $('#msgTempah').innerHTML = alertBox('err', 'Gagal sambung ke pelayan: ' + err.message + ' (semak API_URL dalam config.js)');
+  }
+})();
+</script>
+</body>
+</html>
