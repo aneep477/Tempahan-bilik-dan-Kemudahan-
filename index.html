@@ -70,7 +70,7 @@ nav {
   bottom: calc(12px + env(safe-area-inset-bottom));
   z-index: 10;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
   padding: 8px;
   background: var(--clay);
@@ -97,7 +97,7 @@ main { max-width: 760px; margin: 0 auto; padding: 0 16px; }
 .tab.active { display: block; }
 @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
 
-fieldset, .card, #formSemak, #formAdmin, #adminPanel > .row, #jadual > label {
+fieldset, .card, #formSemak, #formAdmin, #adminPanel > .row, .dash-head, .stat {
   background: var(--clay);
   border: 0;
   border-radius: var(--radius);
@@ -110,7 +110,6 @@ legend {
   font-weight: 800; font-size: 1rem; color: var(--pri-dark);
 }
 #formSemak, #formAdmin, #adminPanel > .row { padding: 18px; margin-bottom: 20px; }
-#jadual > label { display: block; padding: 18px; margin-bottom: 20px; }
 
 label { display: block; margin: 10px 0; font-size: .88rem; font-weight: 700; color: var(--muted); flex: 1; }
 input, select, textarea {
@@ -187,12 +186,100 @@ button:disabled { opacity: .6; cursor: wait; }
   body { padding-bottom: 32px; }
   header { max-width: 760px; margin: 24px auto 16px; padding: 24px 28px; justify-content: center; }
   header h1 { font-size: 1.5rem; }
-  nav { position: static; max-width: 560px; margin: 0 auto 24px; }
+  nav { position: static; max-width: 700px; margin: 0 auto 24px; }
   nav button { flex-direction: row; justify-content: center; gap: 8px; font-size: .9rem; padding: 12px; }
   nav button .ic { font-size: 1.1rem; }
   .actions input { flex-basis: 200px; }
   .row > label.full { flex-basis: 0; }
 }
+
+/* ---------- Dashboard harian ---------- */
+.dash-head { padding: 18px; margin-bottom: 16px; text-align: center; }
+.dash-head h2 { margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--pri-dark); }
+.dash-head .hint { margin-bottom: 12px; }
+.day-nav { display: flex; gap: 10px; align-items: center; }
+.day-nav input { margin: 0; text-align: center; font-weight: 800; }
+.day-nav button { flex: none; width: 52px; height: 52px; padding: 0; font-size: 1.6rem; line-height: 1; border-radius: 18px; }
+.day-label { margin-top: 10px; font-weight: 800; display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
+button.chip { padding: 6px 14px; font-size: .78rem; border-radius: 999px; }
+.legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 12px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 14px; height: 14px; border-radius: 6px; display: inline-block; box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .5), inset -2px -2px 3px rgba(0, 0, 0, .1); }
+.dot.kosong { background: #bdeedb; }
+.dot.Lulus, .seg.Lulus { background: linear-gradient(145deg, #8f80ff, var(--pri)); }
+.dot.Menunggu, .seg.Menunggu { background: linear-gradient(145deg, #ffc57a, var(--wait)); }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 8px; }
+.stat { padding: 14px 8px; text-align: center; border-radius: 22px; }
+.stat b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--pri-dark); }
+.stat span { font-size: .72rem; font-weight: 700; color: var(--muted); }
+
+h3.kat { margin: 22px 4px 4px; font-size: .95rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.fac h3 { justify-content: space-between; }
+.pill { padding: 4px 12px; border-radius: 999px; font-size: .72rem; font-weight: 800; box-shadow: var(--shadow-in); }
+.pill.kosong { background: #dcf7ec; color: #1f8a63; }
+.pill.separa { background: #fff1dc; color: #b26a10; }
+.pill.penuh { background: #ffe3e7; color: #c43c4e; }
+.timeline { position: relative; height: 26px; margin: 10px 0 2px; border-radius: 13px; background: #d9f5ea; box-shadow: var(--shadow-press); overflow: hidden; }
+.seg { position: absolute; top: 4px; bottom: 4px; min-width: 4px; border-radius: 9px; box-shadow: inset 2px 2px 4px rgba(255, 255, 255, .45); }
+.ticks { position: relative; height: 16px; margin: 0 6px 6px; font-size: .68rem; font-weight: 700; color: var(--muted); }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.free { margin: 8px 0 4px !important; font-weight: 700; color: #1f8a63 !important; }
+.free.none { color: #c43c4e !important; }
+.booked { margin-top: 8px; padding: 10px 12px; border-radius: 16px; background: #efecff; box-shadow: var(--shadow-press); font-size: .86rem; }
+.booked p { margin: 2px 0 0 !important; font-size: .8rem !important; }
+.center { text-align: center; margin-top: 16px; }
+
+/* ---------- Butang & slip cetak ---------- */
+button.cetak { width: 100%; margin-top: 12px; background: linear-gradient(145deg, #5fd3a8, var(--ok)); box-shadow: 6px 6px 14px rgba(52, 185, 138, .35), inset 3px 3px 6px rgba(255, 255, 255, .4); }
+#cetak { display: none; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html, body { background: #fff !important; padding: 0 !important; }
+  body > *:not(#cetak) { display: none !important; }
+  #cetak { display: block !important; color: #000; font-family: Arial, sans-serif; }
+  .slip-head { display: flex; align-items: center; gap: 14px; border-bottom: 3px solid #1f3a5f; padding-bottom: 10px; }
+  .slip-head img { height: 64px; }
+  .slip-head h1 { margin: 0; font-size: 18px; color: #1f3a5f; }
+  .slip-head p { margin: 4px 0 0; font-size: 13px; }
+  .slip-status { margin: 14px 0; padding: 8px; text-align: center; font-weight: bold; font-size: 16px; color: #1e7e34; border: 2px solid #1e7e34; border-radius: 6px; }
+  .slip h2 { margin: 16px 0 6px; font-size: 13px; text-transform: uppercase; color: #1f3a5f; }
+  .slip table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .slip th, .slip td { border: 1px solid #999; padding: 6px 8px; text-align: left; vertical-align: top; }
+  .slip th { width: 34%; background: #eef1f6; }
+  .slip-note { margin-top: 14px; font-size: 11px; color: #444; }
+  /* Borang pinjaman alatan setor (ikut format borang kertas) */
+  .borang { font-family: Arial, sans-serif; font-size: 12.5px; color: #000; }
+  .b-head { display: flex; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+  .b-head img { height: 70px; }
+  .b-alamat { line-height: 1.45; }
+  .borang h1 { margin: 14px 0 4px; text-align: center; font-size: 15px; text-decoration: underline; }
+  .b-ruj { margin: 0 0 12px; text-align: right; font-size: 11px; }
+  .b-isi { display: flex; margin: 7px 0; }
+  .b-isi span { width: 210px; flex: none; font-weight: bold; }
+  .b-isi b { flex: 1; font-weight: normal; border-bottom: 1px dotted #000; }
+  .b-jadual { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .b-jadual th, .b-jadual td { border: 1px solid #000; padding: 5px 6px; height: 22px; }
+  .b-jadual th { background: #eee; }
+  .b-jadual td:nth-child(1), .b-jadual td:nth-child(3) { text-align: center; }
+  .b-jadual th:nth-child(1) { width: 7%; } .b-jadual th:nth-child(3) { width: 14%; } .b-jadual th:nth-child(4) { width: 26%; }
+  .b-akuan { margin: 10px 0 6px; }
+  .b-tarikh { display: flex; gap: 40px; margin-bottom: 8px; }
+  .b-ttd { display: flex; justify-content: space-between; gap: 18px; margin-top: 34px; text-align: center; }
+  .b-ttd div { flex: 1; font-size: 11.5px; }
+  .b-ttd i { display: block; border-bottom: 1px dotted #000; margin-bottom: 4px; height: 1px; }
+  .b-pulang { margin-top: 26px; padding-top: 12px; border-top: 1.5px dashed #000; }
+}
+
+/* ---------- Borang pinjaman: baris alatan ---------- */
+.alat { display: grid; grid-template-columns: 28px 1fr 92px 40px; gap: 8px; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #d9d4f5; }
+.alat .bil { font-weight: 800; color: var(--pri-dark); text-align: center; }
+.alat input { margin: 0; }
+.alat input[name=catatanAlat] { grid-column: 2 / 4; }
+.alat .buang { grid-row: 1; grid-column: 4; width: 40px; height: 40px; padding: 0; border-radius: 14px; font-size: .9rem; background: linear-gradient(145deg, #ff8f9c, var(--err)); }
+#tambahAlatan { margin-top: 4px; }
+#formPinjam > button[type=submit] { width: 100%; padding: 16px; font-size: 1.05rem; }
 </style>
 </head>
 <body>
@@ -206,7 +293,8 @@ button:disabled { opacity: .6; cursor: wait; }
 
   <nav>
     <button data-tab="tempah" class="active"><span class="ic">📝</span>Tempah</button>
-    <button data-tab="jadual"><span class="ic">📅</span>Jadual</button>
+    <button data-tab="jadual"><span class="ic">📅</span>Dashboard</button>
+    <button data-tab="pinjam"><span class="ic">📦</span>Pinjam</button>
     <button data-tab="semak"><span class="ic">🔍</span>Semak</button>
     <button data-tab="admin"><span class="ic">🔐</span>Admin</button>
   </nav>
@@ -264,8 +352,49 @@ button:disabled { opacity: .6; cursor: wait; }
 
     <!-- JADUAL -->
     <section id="jadual" class="tab">
-      <label>Tarikh <input type="date" id="tarikhJadual"></label>
+      <div class="dash-head">
+        <h2>Dashboard Harian</h2>
+        <p class="hint">Semak slot kosong sebelum membuat tempahan.</p>
+        <div class="day-nav">
+          <button type="button" id="hariSebelum" aria-label="Hari sebelum">‹</button>
+          <input type="date" id="tarikhJadual" aria-label="Tarikh">
+          <button type="button" id="hariSelepas" aria-label="Hari selepas">›</button>
+        </div>
+        <div class="day-label"><span id="namaHari"></span> <button type="button" id="hariIni" class="chip">Hari ini</button></div>
+        <div class="legend">
+          <span><i class="dot kosong"></i>Kosong</span>
+          <span><i class="dot Lulus"></i>Ditempah</span>
+          <span><i class="dot Menunggu"></i>Menunggu kelulusan</span>
+        </div>
+      </div>
+      <div id="ringkasan" class="stats"></div>
       <div id="senaraiJadual"></div>
+    </section>
+
+    <!-- PINJAM ALATAN SETOR -->
+    <section id="pinjam" class="tab">
+      <form id="formPinjam">
+        <fieldset>
+          <legend>Borang Pinjaman Alatan Setor</legend>
+          <label>Nama <input name="nama" autocomplete="name" required></label>
+          <label>No. Telefon <input type="tel" name="telefon" inputmode="tel" placeholder="cth: 0123456789" required></label>
+          <label>Jabatan / Unit / Kumpulan <input name="jabatan" required></label>
+          <label>Nama Pensyarah <input name="pensyarah" required></label>
+          <label>Tujuan Pinjaman <input name="tujuan" required></label>
+          <div class="row">
+            <label>Tarikh Pinjam <input type="date" name="tarikh" required></label>
+            <label>Dijangka Pulang <input type="date" name="pulang" required></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Senarai Alatan</legend>
+          <p class="hint">Maksimum 10 alatan bagi setiap borang.</p>
+          <div id="alatan"></div>
+          <button type="button" id="tambahAlatan" class="chip">+ Tambah alatan</button>
+        </fieldset>
+        <button type="submit">Hantar &amp; Cetak Borang</button>
+        <div id="msgPinjam" class="msg"></div>
+      </form>
     </section>
 
     <!-- SEMAK -->
@@ -301,6 +430,8 @@ button:disabled { opacity: .6; cursor: wait; }
     </section>
   </main>
 
+  <div id="cetak" aria-hidden="true"></div>
+
   <script>
 // Tampal URL Web App Apps Script (berakhir dengan /exec)
 window.API_URL = 'https://script.google.com/macros/s/AKfycbxQSHZIBrVEO4z_JliOKTWVVRI5Qke5QAXbsFPot0tyMsQmekgFipTlhQBajsi_EX2k/exec';
@@ -309,6 +440,8 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbxQSHZIBrVEO4z_JliOKTW
 const $ = (s) => document.querySelector(s);
 let FASILITI = [];
 let ADMIN_KEY = '';
+let WAKTU = ['08:00', '18:00']; // dikemas kini dari Tetapan > WAKTU_OPERASI
+const KATEGORI = ['Dewan Kuliah', 'Bilik Mesyuarat', 'Fasiliti'];
 
 // GET untuk bacaan; POST (text/plain, elak CORS preflight) untuk tulisan
 async function api(action, params = {}, method = 'GET') {
@@ -374,24 +507,84 @@ $('#formTempah').addEventListener('submit', async (e) => {
   btn.disabled = false;
 });
 
-// ---------- Jadual ----------
+// ---------- Dashboard harian ----------
+const toMin = (t) => +t.slice(0, 2) * 60 + +t.slice(3, 5);
+const toHM = (m) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+
+// Slot kosong dalam waktu operasi, berdasarkan tempahan (disusun ikut masa mula)
+function slotKosong(list) {
+  const [buka, tutup] = WAKTU.map(toMin);
+  let cur = buka;
+  const out = [];
+  list.forEach((t) => {
+    const s = Math.min(Math.max(toMin(t.mula), buka), tutup), e = Math.max(Math.min(toMin(t.tamat), tutup), buka);
+    if (s > cur) out.push([cur, s]);
+    cur = Math.max(cur, e);
+  });
+  if (cur < tutup) out.push([cur, tutup]);
+  return out;
+}
+const kosongPenuhHari = (list) => {
+  const k = slotKosong(list), [buka, tutup] = WAKTU.map(toMin);
+  return k.length === 1 && k[0][0] === buka && k[0][1] === tutup;
+};
+
+function kadFasiliti(f, list) {
+  const [buka, tutup] = WAKTU.map(toMin), span = tutup - buka;
+  const kosong = slotKosong(list);
+  const pct = (m) => ((Math.min(Math.max(m, buka), tutup) - buka) / span) * 100;
+  const status = kosongPenuhHari(list) ? ['kosong', 'Kosong sepanjang hari']
+    : kosong.length ? ['separa', `${kosong.length} slot kosong`] : ['penuh', 'Penuh'];
+  const ticks = [];
+  for (let m = buka; m <= tutup; m += 120) ticks.push(`<span style="left:${pct(m)}%">${toHM(m).slice(0, 2)}</span>`);
+  return `<div class="card fac">
+    <h3>${esc(f.nama)} <span class="pill ${status[0]}">${status[1]}</span></h3>
+    <div class="timeline" role="img" aria-label="Garis masa ${esc(f.nama)}">
+      ${list.filter((t) => toMin(t.tamat) > buka && toMin(t.mula) < tutup).map((t) => `<i class="seg ${esc(t.status)}" style="left:${pct(toMin(t.mula))}%;width:${pct(toMin(t.tamat)) - pct(toMin(t.mula))}%" title="${esc(t.mula)}–${esc(t.tamat)} ${esc(t.tujuan)}"></i>`).join('')}
+    </div>
+    <div class="ticks">${ticks.join('')}</div>
+    ${kosong.length ? `<p class="free">✅ <b>Kosong:</b> ${kosong.map(([a, b]) => `${toHM(a)}–${toHM(b)}`).join(', ')}</p>` : '<p class="free none">⛔ Tiada slot kosong dalam waktu operasi</p>'}
+    ${list.map((t) => `<div class="booked">
+      <b>${esc(t.mula)}–${esc(t.tamat)}</b> <span class="badge ${esc(t.status)}">${esc(t.status)}</span>
+      <p>${esc(t.tujuan)} · ${esc(t.pensyarah)} (${esc(t.unit)})</p></div>`).join('')}
+  </div>`;
+}
+
 async function loadJadual() {
   const tarikh = $('#tarikhJadual').value;
-  $('#senaraiJadual').innerHTML = '<p>Memuatkan…</p>';
+  $('#namaHari').textContent = new Date(tarikh + 'T00:00').toLocaleDateString('ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  $('#senaraiJadual').innerHTML = '<p class="hint">Memuatkan…</p>';
+  $('#ringkasan').innerHTML = '';
   try {
     const list = await api('jadual', { tarikh });
-    $('#senaraiJadual').innerHTML = list.length
-      ? list.map((t) => `<div class="card">
-          <h3>${esc(t.mula)}–${esc(t.tamat)} · ${esc(t.nama)} <span class="badge ${esc(t.status)}">${esc(t.status)}</span></h3>
-          <p>${esc(t.tujuan)}</p><p>Pensyarah: ${esc(t.pensyarah)} (${esc(t.unit)})</p></div>`).join('')
-      : '<p>Tiada tempahan pada tarikh ini. Semua fasiliti kosong.</p>';
+    const ikut = (id) => list.filter((t) => t.fasiliti === id);
+    const kosongPenuh = FASILITI.filter((f) => kosongPenuhHari(ikut(f.id))).length;
+    const penuh = FASILITI.filter((f) => ikut(f.id).length && !slotKosong(ikut(f.id)).length).length;
+    $('#ringkasan').innerHTML = `
+      <div class="stat"><b>${list.length}</b><span>Tempahan</span></div>
+      <div class="stat"><b>${kosongPenuh}</b><span>Kosong sepanjang hari</span></div>
+      <div class="stat"><b>${penuh}</b><span>Penuh</span></div>`;
+    $('#senaraiJadual').innerHTML = KATEGORI.map((k) => {
+      const fs = FASILITI.filter((f) => f.kategori === k);
+      return fs.length ? `<h3 class="kat">${k === 'Fasiliti' ? 'Fasiliti (Dewan Banai)' : k}</h3>${fs.map((f) => kadFasiliti(f, ikut(f.id))).join('')}` : '';
+    }).join('') + `<p class="hint center">Waktu operasi: ${WAKTU[0]}–${WAKTU[1]}</p>`;
   } catch (err) {
     $('#senaraiJadual').innerHTML = alertBox('err', err.message);
   }
 }
+function tukarHari(n) {
+  const d = new Date($('#tarikhJadual').value + 'T00:00');
+  d.setDate(d.getDate() + n);
+  $('#tarikhJadual').value = d.toLocaleDateString('en-CA');
+  loadJadual();
+}
 $('#tarikhJadual').addEventListener('change', loadJadual);
+$('#hariSebelum').addEventListener('click', () => tukarHari(-1));
+$('#hariSelepas').addEventListener('click', () => tukarHari(1));
+$('#hariIni').addEventListener('click', () => { $('#tarikhJadual').value = today(); loadJadual(); });
 
 // ---------- Semak ----------
+let SEMAK = null;
 function cardTempahan(t, admin = false) {
   return `<div class="card">
     <h3>${esc(t['Nama Fasiliti'])} <span class="badge ${esc(t['Status'])}">${esc(t['Status'])}</span></h3>
@@ -401,6 +594,7 @@ function cardTempahan(t, admin = false) {
     <p><b>Tujuan:</b> ${esc(t['Tujuan / Program'])}${t['Bilangan Peserta'] ? ` · ${esc(t['Bilangan Peserta'])} peserta` : ''}</p>
     ${t['Catatan Pemohon'] ? `<p><b>Catatan:</b> ${esc(t['Catatan Pemohon'])}</p>` : ''}
     ${t['Catatan Pentadbir'] ? `<p><b>Catatan Pentadbir:</b> ${esc(t['Catatan Pentadbir'])}</p>` : ''}
+    ${t['Status'] === 'Lulus' ? `<button type="button" class="cetak" data-cetak="${esc(t['ID Tempahan'])}">🖨️ Cetak / Simpan PDF</button>` : ''}
     ${admin ? `<div class="actions" data-id="${esc(t['ID Tempahan'])}">
       <input placeholder="Catatan pentadbir (pilihan)">
       <button class="lulus" data-status="Lulus">Lulus</button>
@@ -413,6 +607,7 @@ $('#formSemak').addEventListener('submit', async (e) => {
   e.preventDefault();
   try {
     const t = await api('semak', Object.fromEntries(new FormData(e.target)), 'POST');
+    SEMAK = t;
     $('#hasilSemak').innerHTML = cardTempahan(t);
   } catch (err) {
     $('#hasilSemak').innerHTML = alertBox('err', err.message);
@@ -462,13 +657,155 @@ $('#senaraiAdmin').addEventListener('click', async (e) => {
   }
 });
 
+// ---------- Cetak slip kelulusan (Cetak / Simpan sebagai PDF melalui pelayar) ----------
+function slipKelulusan(t) {
+  const baris = [
+    ['ID Tempahan', t['ID Tempahan']], ['Tarikh Permohonan', t['Tarikh Permohonan']],
+    ['Fasiliti', `${t['Nama Fasiliti']} (${t['Kategori']})`], ['Tarikh Penggunaan', t['Tarikh Guna']],
+    ['Masa', `${t['Masa Mula']} – ${t['Masa Tamat']}`], ['Tujuan / Program', t['Tujuan / Program']],
+    ['Bilangan Peserta', t['Bilangan Peserta'] || '-'],
+  ];
+  const pelajar = [
+    ['Nama Pelajar', t['Nama Pelajar']], ['No. Matrik', t['No. Matrik']], ['Program / Kumpulan', t['Program / Kumpulan']],
+    ['No. Telefon', t['No. Telefon Pelajar']], ['Emel', t['Emel Pelajar']],
+  ];
+  const pensyarah = [
+    ['Nama Pensyarah', t['Nama Pensyarah Bertanggungjawab']], ['Jabatan', t['Jabatan Pensyarah']], ['No. Telefon', t['No. Telefon Pensyarah']],
+  ];
+  const jadual = (rows) => `<table>${rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table>`;
+  return `<div class="slip">
+    <div class="slip-head">
+      <img src="logo.png" alt="" onerror="this.remove()">
+      <div><h1>SLIP KELULUSAN TEMPAHAN FASILITI</h1><p>${esc($('#institusi').textContent)}</p></div>
+    </div>
+    <div class="slip-status">STATUS: DILULUSKAN</div>
+    <h2>Butiran Tempahan</h2>${jadual(baris)}
+    <h2>Maklumat Pelajar (Pemohon)</h2>${jadual(pelajar)}
+    <h2>Pensyarah Bertanggungjawab</h2>${jadual(pensyarah)}
+    <h2>Kelulusan</h2>${jadual([['Tarikh Kelulusan', t['Tarikh Kemaskini']], ['Catatan Pentadbir', t['Catatan Pentadbir'] || '-']])}
+    <p class="slip-note">Slip ini dijana oleh Sistem Tempahan Fasiliti dan sah tanpa tandatangan. Sila tunjukkan slip ini semasa menggunakan fasiliti.</p>
+    <p class="slip-note">Dicetak pada: ${esc(new Date().toLocaleString('ms-MY'))}</p>
+  </div>`;
+}
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-cetak]');
+  if (!btn) return;
+  const id = btn.dataset.cetak;
+  const t = (SEMAK && SEMAK['ID Tempahan'] === id) ? SEMAK : SENARAI.find((x) => x['ID Tempahan'] === id);
+  if (!t) return;
+  $('#cetak').innerHTML = slipKelulusan(t);
+  window.print();
+});
+
+// ---------- Pinjaman alatan setor ----------
+const MAKS_ALATAN = 10;
+let PINJAM = null; // borang terakhir yang dihantar (untuk dicetak)
+
+function tambahAlatan() {
+  const box = $('#alatan');
+  if (box.children.length >= MAKS_ALATAN) return;
+  const row = document.createElement('div');
+  row.className = 'alat';
+  row.innerHTML = `<span class="bil"></span>
+    <input name="butiran" placeholder="Butiran alatan" aria-label="Butiran alatan">
+    <input name="kuantiti" type="number" min="1" inputmode="numeric" placeholder="Kuantiti" aria-label="Kuantiti">
+    <input name="catatanAlat" placeholder="Catatan (pilihan)" aria-label="Catatan">
+    <button type="button" class="buang" aria-label="Buang baris">✕</button>`;
+  box.appendChild(row);
+  susunBil();
+}
+function susunBil() {
+  [...$('#alatan').children].forEach((r, i) => (r.querySelector('.bil').textContent = i + 1));
+  $('#tambahAlatan').hidden = $('#alatan').children.length >= MAKS_ALATAN;
+}
+$('#tambahAlatan').addEventListener('click', tambahAlatan);
+$('#alatan').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('buang')) return;
+  if ($('#alatan').children.length > 1) e.target.parentElement.remove();
+  else e.target.parentElement.querySelectorAll('input').forEach((i) => (i.value = ''));
+  susunBil();
+});
+
+function borangPinjaman(d) {
+  const tarikhMY = (s) => (s ? s.split('-').reverse().join('/') : '');
+  const baris = Array.from({ length: MAKS_ALATAN }, (_, i) => d.items[i] || {});
+  return `<div class="borang">
+    <div class="b-head">
+      <img src="logo.png" alt="" onerror="this.remove()">
+      <div class="b-alamat"><b>INSTITUT PENDIDIKAN GURU KAMPUS DARULAMAN</b><br>BANDAR DARULAMAN<br>06000 JITRA KEDAH</div>
+    </div>
+    <h1>BORANG PINJAMAN ALATAN SETOR</h1>
+    <p class="b-ruj">No. Rujukan: ${esc(d.id)}</p>
+    <div class="b-isi"><span>NAMA</span><b>: ${esc(d.nama)}</b></div>
+    <div class="b-isi"><span>NO TEL</span><b>: ${esc(d.telefon)}</b></div>
+    <div class="b-isi"><span>JABATAN / UNIT / KUMPULAN</span><b>: ${esc(d.jabatan)}</b></div>
+    <div class="b-isi"><span>NAMA PENSYARAH</span><b>: ${esc(d.pensyarah)}</b></div>
+    <div class="b-isi"><span>TUJUAN PINJAMAN</span><b>: ${esc(d.tujuan)}</b></div>
+    <table class="b-jadual">
+      <tr><th>BIL</th><th>BUTIRAN</th><th>KUANTITI</th><th>CATATAN</th></tr>
+      ${baris.map((it, i) => `<tr><td>${i + 1}</td><td>${esc(it.butiran || '')}</td><td>${esc(it.kuantiti || '')}</td><td>${esc(it.catatan || '')}</td></tr>`).join('')}
+    </table>
+    <p class="b-akuan">Saya mengaku menerima peralatan yang disenaraikan di atas dalam keadaan baik dan sempurna.</p>
+    <div class="b-tarikh"><span>Tarikh : <b>${tarikhMY(d.tarikh)}</b></span><span>Dijangka pulang : <b>${tarikhMY(d.pulang)}</b></span></div>
+    <div class="b-ttd">
+      <div><i></i>(T.Tangan Peminjam)</div>
+      <div><i></i>T.Tgn Pembantu Setor</div>
+      <div><i></i>T.Tgn Ketua Unit</div>
+    </div>
+    <div class="b-pulang">
+      <p>Disahkan peralatan yang dipinjamkan seperti senarai di atas diterima dalam keadaan baik dan sempurna.</p>
+      <div class="b-ttd">
+        <div><i></i>T.Tgn Peminjam</div>
+        <div><i></i>Tarikh dipulangkan</div>
+        <div><i></i>T.Tgn Pembantu Setor</div>
+      </div>
+    </div>
+  </div>`;
+}
+function cetakPinjaman() {
+  if (!PINJAM) return;
+  $('#cetak').innerHTML = borangPinjaman(PINJAM);
+  window.print();
+}
+
+$('#formPinjam').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target, btn = form.querySelector('button[type=submit]');
+  const f = Object.fromEntries(new FormData(form));
+  const items = [...$('#alatan').children].map((r) => ({
+    butiran: r.querySelector('[name=butiran]').value.trim(),
+    kuantiti: r.querySelector('[name=kuantiti]').value,
+    catatan: r.querySelector('[name=catatanAlat]').value.trim(),
+  })).filter((it) => it.butiran);
+  const data = { nama: f.nama, telefon: f.telefon, jabatan: f.jabatan, pensyarah: f.pensyarah, tujuan: f.tujuan, tarikh: f.tarikh, pulang: f.pulang, items };
+  btn.disabled = true;
+  $('#msgPinjam').innerHTML = '';
+  try {
+    const r = await api('pinjam', data, 'POST');
+    PINJAM = { ...data, id: r.id };
+    $('#msgPinjam').innerHTML = alertBox('ok', `Borang dihantar. No. Rujukan: ${r.id}. Cetak borang dan bawa ke setor untuk ditandatangani.`) +
+      '<button type="button" class="cetak" id="cetakPinjam">🖨️ Cetak / Simpan PDF Borang</button>';
+    form.reset();
+    $('#alatan').innerHTML = '';
+    tambahAlatan();
+    cetakPinjaman();
+  } catch (err) {
+    $('#msgPinjam').innerHTML = alertBox('err', err.message);
+  }
+  btn.disabled = false;
+});
+$('#msgPinjam').addEventListener('click', (e) => { if (e.target.id === 'cetakPinjam') cetakPinjaman(); });
+tambahAlatan();
+
 // ---------- Init ----------
 (async function init() {
   $('#tarikhJadual').value = today();
-  document.querySelector('input[name=tarikh]').min = today();
+  document.querySelector('#formTempah input[name=tarikh]').min = today();
+  document.querySelector('#formPinjam input[name=tarikh]').min = today();
   try {
     const [info, fas] = await Promise.all([api('info'), api('fasiliti')]);
     if (info.institusi) $('#institusi').textContent = info.institusi;
+    if (/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(info.waktu || '')) WAKTU = info.waktu.split('-');
     FASILITI = fas;
     renderFasiliti();
   } catch (err) {
